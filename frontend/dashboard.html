@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Library | Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body onload="loadDashboard()">
+    <main class="page page--wide">
+      <div class="dashboard-layout">
+        <header class="dashboard-header">
+          <div>
+            <h1 class="page-title">Dashboard</h1>
+            <p class="page-subtitle">
+              Manage books, issues, and returns for your account.
+            </p>
+          </div>
+          <div style="text-align: right">
+            <div class="user-info">
+              <div><strong id="user-name"></strong></div>
+              <div id="user-email"></div>
+              <div class="badge" id="user-role"></div>
+            </div>
+            <button class="btn btn-text" onclick="logout()">Log out</button>
+          </div>
+        </header>
+
+        <section class="section">
+          <div class="section-title">Books</div>
+          <div id="books-empty" class="muted hidden">
+            No books found. Add some books using the backend API.
+          </div>
+          <div id="books-container" class="books-grid"></div>
+        </section>
+
+        <section class="section">
+          <div class="section-title">Return book by transaction ID</div>
+          <form id="return-form" class="actions" style="margin-top: 4px">
+            <input
+              type="number"
+              id="return-transaction-id"
+              placeholder="Transaction ID"
+              style="max-width: 200px"
+              required
+            />
+            <button class="btn btn-secondary" type="submit">Return book</button>
+          </form>
+          <p class="muted">
+            When you issue a book, the transaction ID is shown. Use it here
+            to return and calculate any fine.
+          </p>
+        </section>
+
+        <div id="dashboard-error" class="alert alert-error hidden"></div>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+      document
+        .getElementById("return-form")
+        .addEventListener("submit", returnByTransactionId);
+    </script>
+  </body>
+  </html>
+
