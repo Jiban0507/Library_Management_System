@@ -1,13 +1,19 @@
 FROM eclipse-temurin:17-jdk
 
-WORKDIR /app
+# Backend workdir
+WORKDIR /app/backend
 
-COPY backend /app
+# Copy backend code
+COPY backend /app/backend
 
+# Make Maven wrapper executable
 RUN chmod +x mvnw
+
+# Build the jar
 RUN ./mvnw clean package
 
+# Expose port
 EXPOSE 8080
 
-# fix CMD
+# Run the jar
 CMD ["java", "-jar", "target/library-management-system-0.0.1-SNAPSHOT.jar"]

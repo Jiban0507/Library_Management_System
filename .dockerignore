@@ -1,0 +1,18 @@
+# Ignore target folder
+backend/target/
+
+# Logs
+*.log
+
+# IDE / Editor files
+*.iml
+.idea/
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Node modules & frontend build
+frontend/node_modules/
+frontend/dist/
