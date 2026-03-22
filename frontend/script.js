@@ -1,5 +1,5 @@
 // @ts-nocheck
-const API_BASE_URL = "http://localhost:8080";
+const API_BASE_URL = "https://library-management-system-s7gj.onrender.com";
 
 // ---------- USER STORAGE ----------
 function getStoredUser() { return JSON.parse(localStorage.getItem("lms_user")); }
