@@ -1,21 +1,45 @@
-# Ignore build output (Spring Boot)
+# ===============================
+# Spring Boot / Maven (Backend)
+# ===============================
+
+# Ignore build output
 backend/target/
 
-# Logs
+# Ignore logs
 *.log
 
-# IDE files
+# ===============================
+# IDE / Editor files
+# ===============================
+
+# IntelliJ IDEA
 *.iml
 .idea/
+
+# VS Code
 .vscode/
 
+# ===============================
 # OS generated files
+# ===============================
+
 .DS_Store
 Thumbs.db
 
-# Maven wrapper (optional)
-backend/.mvn/
+# ===============================
+# IMPORTANT: Do NOT ignore Maven wrapper
+# ===============================
+# (Keep these files tracked)
+# backend/.mvn/
+# backend/mvnw
+# backend/mvnw.cmd
 
-# Node/Frontend dependencies (if any)
+# ===============================
+# Frontend (Node.js)
+# ===============================
+
+# Node modules
 frontend/node_modules/
+
+# Build output
 frontend/dist/
