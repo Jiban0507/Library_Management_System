@@ -19,12 +19,16 @@
       justify-content:space-between; 
       align-items:center; 
       flex-wrap:wrap;
+      background:#1e3a8a;
+      padding:16px 24px;
+      border-radius:8px;
       margin-bottom:20px; 
+      color:white;
     }
 
     header h2 { 
-      color:#ffffff; 
       font-size:1.8rem; 
+      font-weight:700;
     }
 
     #user-info { 
@@ -35,6 +39,7 @@
       display:block; 
       font-size:0.9rem; 
       color:#ffffff;
+      margin-top:4px;
     }
 
     #user-info button { 
@@ -45,6 +50,7 @@
       border-radius:6px; 
       cursor:pointer; 
       margin-top:6px;
+      font-weight:600;
     }
 
     #user-info button:hover { 
@@ -106,6 +112,9 @@
       transition:transform 0.2s, box-shadow 0.2s; 
     }
 
+    .book-card.available { border-left:4px solid #22c55e; }
+    .book-card.unavailable { border-left:4px solid #dc2626; }
+
     .book-card:hover { 
       transform:translateY(-4px); 
       box-shadow:0 6px 20px rgba(0,0,0,0.15); 
@@ -136,6 +145,7 @@
       cursor:pointer; 
       transition:0.2s; 
       font-size:0.85rem;
+      font-weight:600;
     }
 
     .btn-issue { background:#15803d; color:white; }
@@ -186,6 +196,7 @@
       background:#f59e0b; 
       color:white; 
       cursor:pointer;
+      font-weight:600;
     }
 
     #search-bar button:hover { opacity:0.9; }
