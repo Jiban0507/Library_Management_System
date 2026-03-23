@@ -63,8 +63,10 @@
   </div>
 
   <script>
+    // ---------------- Backend URL ----------------
     const API_BASE_URL = "https://library-management-system-s7gj.onrender.com";
 
+    // ---------------- API Request Function ----------------
     async function apiRequest(path, options={}) {
       const res = await fetch(API_BASE_URL + path, {
         headers: {"Content-Type":"application/json"},
@@ -76,6 +78,7 @@
       return data;
     }
 
+    // ---------------- Login Form Submission ----------------
     document.getElementById("login-form").addEventListener("submit", async function(e){
       e.preventDefault();
       const form = e.target;
@@ -90,8 +93,13 @@
           method:"POST",
           body: JSON.stringify({email,password})
         });
+
+        // Store user in localStorage
         localStorage.setItem("lms_user", JSON.stringify(user));
+
+        // ✅ Redirect to dashboard with .html suffix
         window.location.href = "dashboard.html";
+
       } catch(err){
         errorBox.innerText = err.message || "Login failed ❌";
         errorBox.style.display="block";
