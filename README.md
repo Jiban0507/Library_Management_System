@@ -125,6 +125,7 @@ library-management-system/
 │   ├── pom.xml
 │
 ├── frontend/               (HTML, CSS, JS)
+│   ├── index.html
 │   ├── login.html
 │   ├── register.html
 │   ├── dashboard.html
@@ -178,7 +179,7 @@ frontend/login.html
 ## 🎥 Live Demo
 
 👉 Try the project here:  
-[**Library Management System Demo**](https://your-demo-link.com)   
+[**Library Management System Demo**](https://library-management-system-iota-self.vercel.app/)   
 
 ---
 
