@@ -49,6 +49,7 @@ function renderBooks(books){
   books.forEach(book=>{
     const div = document.createElement("div");
     div.className="book-card";
+    div.classList.add(book.availableCopies>0 ? "available" : "unavailable");
     div.innerHTML = `
       <div class="book-title">${book.title}</div>
       <div class="book-meta">Author: ${book.author}</div>
