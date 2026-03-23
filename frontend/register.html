@@ -76,8 +76,10 @@
   </div>
 
   <script>
+    // ---------------- Backend URL ----------------
     const API_BASE_URL = "https://library-management-system-s7gj.onrender.com";
 
+    // ---------------- API Request Function ----------------
     async function apiRequest(path, options = {}) {
       const res = await fetch(API_BASE_URL + path, {
         headers: { "Content-Type": "application/json" },
@@ -89,6 +91,7 @@
       return data;
     }
 
+    // ---------------- Register Form Submission ----------------
     document.getElementById("register-form").addEventListener("submit", async function(e){
       e.preventDefault();
       const form = e.target;
@@ -112,6 +115,7 @@
         successBox.style.display="block";
         form.reset();
 
+        // ✅ Redirect to login.html after 2 seconds
         setTimeout(() => { window.location.href="login.html"; }, 2000);
 
       } catch(err) {
