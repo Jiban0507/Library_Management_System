@@ -181,3 +181,33 @@ async function returnBook(){
 
 // ---------- LOGOUT ----------
 function logout(){ clearUser(); window.location.href="login.html"; }
+
+const loader = document.getElementById("loader");
+
+document.getElementById("login-form").addEventListener("submit", async function(e){
+  e.preventDefault();
+  const form = e.target;
+  const email = form.email.value.trim();
+  const password = form.password.value;
+
+  const errorBox = document.getElementById("login-error");
+  errorBox.style.display = "none";
+
+  try {
+    loader.style.display = "flex"; // Show loader
+
+    const user = await apiRequest("/api/auth/login", {
+      method:"POST",
+      body: JSON.stringify({email,password})
+    });
+
+    localStorage.setItem("lms_user", JSON.stringify(user));
+    window.location.href = "dashboard.html";
+
+  } catch(err){
+    errorBox.innerText = err.message || "Login failed ❌";
+    errorBox.style.display = "block";
+  } finally {
+    loader.style.display = "none"; // Hide loader no matter what
+  }
+});
