@@ -188,13 +188,6 @@ frontend/login.html
 
 ---
 
-## 👨‍💻 Author
-**Jiban Maji**  
-B.Tech CSE (AI & ML)  
-Passionate about building real-world applications 🚀  
-
----
-
 ## 🔮 Future Improvements
 - Update/Edit Book feature  
 - Search and filter system  
