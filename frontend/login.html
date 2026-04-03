@@ -40,10 +40,28 @@
       font-weight:600;
     }
     button:hover { opacity:0.9; }
+
     .alert { display:none; padding:8px; border-radius:6px; margin-top:10px; font-size:0.9rem; }
     .alert-error { background:#fee2e2; color:#991b1b; }
+
     a { color:#2563eb; text-decoration:none; }
     a:hover { text-decoration:underline; }
+
+    /* 🔥 Loader */
+    .spinner {
+      border: 4px solid #eee;
+      border-top: 4px solid #2563eb;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      animation: spin 1s linear infinite;
+      margin: 10px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
@@ -57,16 +75,20 @@
       <button type="submit">Login</button>
     </form>
 
+    <!-- 🔥 Loader + Message -->
+    <div id="loadingBox" style="display:none; text-align:center; margin-top:10px;">
+      <div class="spinner"></div>
+      <p>Please wait, it may take some time to run the backend...</p>
+    </div>
+
     <div id="login-error" class="alert alert-error"></div>
 
     <p>New here? <a href="register.html">Create an account</a></p>
   </div>
 
   <script>
-    // ---------------- Backend URL ----------------
     const API_BASE_URL = "https://library-management-system-s7gj.onrender.com";
 
-    // ---------------- API Request Function ----------------
     async function apiRequest(path, options={}) {
       const res = await fetch(API_BASE_URL + path, {
         headers: {"Content-Type":"application/json"},
@@ -78,15 +100,23 @@
       return data;
     }
 
-    // ---------------- Login Form Submission ----------------
     document.getElementById("login-form").addEventListener("submit", async function(e){
       e.preventDefault();
+
       const form = e.target;
       const email = form.email.value.trim();
       const password = form.password.value;
 
       const errorBox = document.getElementById("login-error");
+      const loadingBox = document.getElementById("loadingBox");
+      const submitBtn = form.querySelector("button");
+
       errorBox.style.display="none";
+
+      // 🔥 SHOW loader
+      loadingBox.style.display = "block";
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Logging in...";
 
       try {
         const user = await apiRequest("/api/auth/login", {
@@ -94,15 +124,20 @@
           body: JSON.stringify({email,password})
         });
 
-        // Store user in localStorage
+        // Store user
         localStorage.setItem("lms_user", JSON.stringify(user));
 
-        // ✅ Redirect to dashboard with .html suffix
+        // ✅ redirect
         window.location.href = "dashboard.html";
 
       } catch(err){
         errorBox.innerText = err.message || "Login failed ❌";
         errorBox.style.display="block";
+
+        // ❌ reset UI
+        loadingBox.style.display = "none";
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Login";
       }
     });
   </script>
