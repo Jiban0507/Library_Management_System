@@ -40,6 +40,7 @@
       font-weight:600;
     }
     button:hover { opacity:0.9; }
+
     .alert {
       display:none;
       padding:8px;
@@ -49,8 +50,25 @@
     }
     .alert-success { background:#dcfce7; color:#166534; }
     .alert-error { background:#fee2e2; color:#991b1b; }
+
     a { color:#2563eb; text-decoration:none; }
     a:hover { text-decoration:underline; }
+
+    /* 🔥 Loader */
+    .spinner {
+      border: 4px solid #eee;
+      border-top: 4px solid #2563eb;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      animation: spin 1s linear infinite;
+      margin: 10px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
@@ -69,6 +87,12 @@
       <button type="submit">Register</button>
     </form>
 
+    <!-- 🔥 Loader + Message -->
+    <div id="loadingBox" style="display:none; text-align:center; margin-top:10px;">
+      <div class="spinner"></div>
+      <p>Please wait, it may take some time to run the backend...</p>
+    </div>
+
     <div id="register-error" class="alert alert-error"></div>
     <div id="register-success" class="alert alert-success"></div>
 
@@ -76,10 +100,8 @@
   </div>
 
   <script>
-    // ---------------- Backend URL ----------------
     const API_BASE_URL = "https://library-management-system-s7gj.onrender.com";
 
-    // ---------------- API Request Function ----------------
     async function apiRequest(path, options = {}) {
       const res = await fetch(API_BASE_URL + path, {
         headers: { "Content-Type": "application/json" },
@@ -91,9 +113,9 @@
       return data;
     }
 
-    // ---------------- Register Form Submission ----------------
     document.getElementById("register-form").addEventListener("submit", async function(e){
       e.preventDefault();
+
       const form = e.target;
       const name = form.name.value.trim();
       const email = form.email.value.trim();
@@ -102,8 +124,16 @@
 
       const errorBox = document.getElementById("register-error");
       const successBox = document.getElementById("register-success");
+      const loadingBox = document.getElementById("loadingBox");
+      const submitBtn = form.querySelector("button");
+
       errorBox.style.display="none";
       successBox.style.display="none";
+
+      // 🔥 SHOW loader
+      loadingBox.style.display = "block";
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Registering...";
 
       try {
         await apiRequest("/api/auth/register", {
@@ -115,12 +145,18 @@
         successBox.style.display="block";
         form.reset();
 
-        // ✅ Redirect to login.html after 2 seconds
-        setTimeout(() => { window.location.href="login.html"; }, 2000);
+        setTimeout(() => {
+          window.location.href="login.html";
+        }, 2000);
 
       } catch(err) {
         errorBox.innerText = err.message || "Registration failed ❌";
         errorBox.style.display="block";
+
+        // ❌ hide loader on error
+        loadingBox.style.display = "none";
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Register";
       }
     });
   </script>
