@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Library Management System - Project Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  :root {
+    --primary: #1a365d;
+    --primary-light: #2c5282;
+    --primary-dark: #0f2440;
+    --accent: #c9a227;
+    --accent-light: #d4b74a;
+    --text-dark: #1a202c;
+    --text-body: #2d3748;
+    --text-muted: #718096;
+    --border: #cbd5e0;
+    --bg-light: #f7fafc;
+    --bg-card: #ffffff;
+    --success: #38a169;
+    --info: #3182ce;
+    --warning: #d69e2e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-body);
+    background: #e2e8f0;
+    line-height: 1.7;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    background: white;
+    margin: 20px auto;
+    padding: 0;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ===== PAGE 1 - COVER ===== */
+  .cover-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(160deg, var(--primary-dark) 0%, var(--primary) 40%, var(--primary-light) 100%);
+    color: white;
+    padding: 40px 60px;
+    position: relative;
+  }
+
+  .cover-page::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 20%, rgba(201,162,39,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(201,162,39,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .cover-page::after {
+    content: '';
+    position: absolute;
+    top: 15px; left: 15px; right: 15px; bottom: 15px;
+    border: 1px solid rgba(201,162,39,0.3);
+    pointer-events: none;
+  }
+
+  .cover-logo-area {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 30px;
+  }
+
+  .cover-logo-area .uni-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .cover-logo-area .dept-name {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.85;
+    color: rgba(255,255,255,0.9);
+  }
+
+  .cover-divider {
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    margin: 25px auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-icon-group {
+    position: relative;
+    z-index: 1;
+    margin: 20px 0;
+  }
+
+  .cover-project-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.3;
+    color: white;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-subtitle {
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 15px;
+    opacity: 0.8;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-tech-badges {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 25px;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+  }
+
+  .tech-badge {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(201,162,39,0.3);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--accent-light);
+    backdrop-filter: blur(4px);
+  }
+
+  .cover-team-section {
+    position: relative;
+    z-index: 1;
+    margin-top: 40px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 25px 40px;
+    backdrop-filter: blur(8px);
+  }
+
+  .cover-team-section h4 {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 15px;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 40px;
+    text-align: left;
+  }
+
+  .team-grid .member {
+    font-size: 12.5px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .team-grid .member .name { font-weight: 500; }
+  .team-grid .member .code { 
+    font-family: 'JetBrains Mono', monospace; 
+    font-size: 10px; 
+    opacity: 0.6;
+    margin-left: auto;
+  }
+
+  .cover-footer {
+    position: relative;
+    z-index: 1;
+    margin-top: 30px;
+    font-size: 11px;
+    opacity: 0.7;
+  }
+
+  .cover-footer span {
+    display: inline-block;
+    margin: 0 10px;
+  }
+
+  /* ===== INNER PAGES ===== */
+  .inner-page {
+    padding: 45px 55px 55px 55px;
+  }
+
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+  }
+
+  .page-header .header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .page-header .header-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--primary);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+  }
+
+  .page-header .header-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .page-header .header-text p {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .page-header .page-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    background: var(--bg-light);
+    padding: 4px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+
+  .page-footer {
+    position: absolute;
+    bottom: 25px;
+    left: 55px;
+    right: 55px;
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== SECTION STYLES ===== */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title .num {
+    width: 28px;
+    height: 28px;
+    background: var(--accent);
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .sub-section-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary-light);
+    margin: 16px 0 8px 0;
+    padding-left: 14px;
+    border-left: 3px solid var(--accent);
+  }
+
+  p.body-text {
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--text-body);
+    margin-bottom: 10px;
+    text-align: justify;
+  }
+
+  ul.styled-list {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0 14px 0;
+  }
+
+  ul.styled-list li {
+    font-size: 12px;
+    padding: 4px 0 4px 22px;
+    position: relative;
+    color: var(--text-body);
+    line-height: 1.7;
+  }
+
+  ul.styled-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 2px;
+    transform: rotate(45deg);
+  }
+
+  /* ===== CARDS ===== */
+  .info-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin: 14px 0;
+  }
+
+  .info-card {
+    background: var(--bg-light);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+
+  .info-card .card-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--primary);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    margin: 0 auto 8px auto;
+  }
+
+  .info-card h5 {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .info-card p {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ===== DIAGRAM CONTAINERS ===== */
+  .diagram-box {
+    background: var(--bg-light);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 14px 0;
+    position: relative;
+  }
+
+  .diagram-box .diagram-label {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: var(--primary);
+    color: var(--accent);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 14px;
+    border-radius: 4px;
+  }
+
+  .diagram-box svg {
+    width: 100%;
+    display: block;
+  }
+
+  /* ===== REQUIREMENTS TABLE ===== */
+  .req-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 14px 0;
+    font-size: 11px;
+  }
+
+  .req-table th {
+    background: var(--primary);
+    color: white;
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .req-table th:first-child { border-radius: 6px 0 0 0; }
+  .req-table th:last-child { border-radius: 0 6px 0 0; }
+
+  .req-table td {
+    padding: 7px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-body);
+  }
+
+  .req-table tr:nth-child(even) td { background: var(--bg-light); }
+
+  .req-table .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .tag-functional { background: #ebf8ff; color: #2b6cb0; }
+  .tag-nonfunctional { background: #fefcbf; color: #975a16; }
+  .tag-feasible { background: #c6f6d5; color: #276749; }
+
+  /* ===== MODULE CARDS ===== */
+  .module-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 10px 0;
+  }
+
+  .module-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .module-card .mod-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: white;
+    font-size: 18px;
+  }
+
+  .module-card h5 {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 3px;
+  }
+
+  .module-card p {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .mod-auth { background: linear-gradient(135deg, #667eea, #764ba2); }
+  .mod-book { background: linear-gradient(135deg, #f093fb, #f5576c); }
+  .mod-trans { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+  .mod-fine { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+
+  /* ===== TEST RESULTS ===== */
+  .test-bar-group {
+    margin: 12px 0;
+  }
+
+  .test-bar-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .test-bar-item .label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-body);
+    width: 120px;
+    flex-shrink: 0;
+  }
+
+  .test-bar-item .bar-bg {
+    flex: 1;
+    height: 22px;
+    background: var(--bg-light);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .test-bar-item .bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    color: white;
+    transition: width 1s ease;
+  }
+
+  .bar-pass { background: linear-gradient(90deg, #38a169, #48bb78); }
+  .bar-good { background: linear-gradient(90deg, #3182ce, #4299e1); }
+
+  /* ===== CONCLUSION BOX ===== */
+  .highlight-box {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    border-radius: 10px;
+    padding: 20px 24px;
+    color: white;
+    margin: 14px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .highlight-box::after {
+    content: '"';
+    position: absolute;
+    right: 20px;
+    top: -10px;
+    font-size: 80px;
+    font-family: 'Playfair Display', serif;
+    color: rgba(201,162,39,0.15);
+    line-height: 1;
+  }
+
+  .highlight-box p {
+    font-size: 12px;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== FUTURE SCOPE GRID ===== */
+  .future-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 12px 0;
+  }
+
+  .future-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-light);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+
+  .future-item .fi-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .future-item .fi-text h5 {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .future-item .fi-text p {
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; }
+    .page {
+      box-shadow: none;
+      margin: 0;
+      page-break-after: always;
+    }
+  }
+
+  @media screen {
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .page { animation: fadeInUp 0.6s ease both; }
+    .page:nth-child(2) { animation-delay: 0.1s; }
+    .page:nth-child(3) { animation-delay: 0.2s; }
+    .page:nth-child(4) { animation-delay: 0.3s; }
+    .page:nth-child(5) { animation-delay: 0.4s; }
+  }
+
+  .cert-box {
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 12px 0;
+    background: linear-gradient(135deg, rgba(201,162,39,0.03), rgba(201,162,39,0.08));
+  }
+
+  .cert-box p {
+    font-size: 11.5px;
+    line-height: 1.8;
+    text-align: justify;
+    color: var(--text-body);
+  }
+
+  .cert-box .signatures {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 18px;
+  }
+
+  .cert-box .sig-item {
+    text-align: center;
+  }
+
+  .cert-box .sig-line {
+    width: 140px;
+    height: 1px;
+    background: var(--primary);
+    margin-bottom: 4px;
+  }
+
+  .cert-box .sig-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--primary);
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .two-col .col { }
+
+  .ack-box {
+    background: var(--bg-light);
+    border-left: 4px solid var(--accent);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 12px 0;
+  }
+
+  .ack-box p {
+    font-size: 11.5px;
+    line-height: 1.8;
+    text-align: justify;
+    color: var(--text-body);
+    font-style: italic;
+  }
+
+  .abstract-box {
+    background: linear-gradient(135deg, #f7fafc, #edf2f7);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 12px 0;
+    position: relative;
+  }
+
+  .abstract-box::before {
+    content: 'ABSTRACT';
+    position: absolute;
+    top: -1px;
+    left: 20px;
+    background: var(--primary);
+    color: var(--accent);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    padding: 4px 16px;
+    border-radius: 0 0 4px 4px;
+  }
+
+  .abstract-box p {
+    font-size: 11.5px;
+    line-height: 1.9;
+    text-align: justify;
+    color: var(--text-body);
+    margin-top: 10px;
+  }
+
+  .layer-legend {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .layer-legend .leg-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  .layer-legend .leg-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+  }
+
+  .security-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 12px 0;
+  }
+
+  .sec-item {
+    background: var(--bg-light);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .sec-item .sec-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px auto;
+    color: var(--accent);
+  }
+
+  .sec-item h5 { font-size: 11px; font-weight: 700; color: var(--primary); margin-bottom: 3px; }
+  .sec-item p { font-size: 10px; color: var(--text-muted); }
+
+  .er-mini-card {
+    display: inline-flex;
+    flex-direction: column;
+    background: white;
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    overflow: hidden;
+    width: 110px;
+    text-align: center;
+  }
+
+  .er-mini-card .er-head {
+    background: var(--primary);
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 6px 8px;
+    letter-spacing: 0.5px;
+  }
+
+  .er-mini-card .er-body {
+    padding: 6px 8px;
+    font-size: 9px;
+    color: var(--text-body);
+    line-height: 1.7;
+    text-align: left;
+  }
+
+  .er-mini-card .er-body span {
+    display: block;
+  }
+
+  .er-mini-card .er-body .pk { color: var(--accent); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<div class="page cover-page">
+  <div class="cover-logo-area">
+    <div class="uni-name">BRAINWARE UNIVERSITY</div>
+    <div class="dept-name">Department of Computer Science & Engineering – AIML</div>
+  </div>
+
+  <div class="cover-divider"></div>
+
+  <div class="cover-icon-group">
+    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+      <rect x="10" y="25" width="60" height="40" rx="4" stroke="#c9a227" stroke-width="2" fill="rgba(201,162,39,0.08)"/>
+      <rect x="15" y="15" width="50" height="15" rx="3" stroke="#c9a227" stroke-width="2" fill="rgba(201,162,39,0.12)"/>
+      <line x1="20" y1="38" x2="60" y2="38" stroke="#c9a227" stroke-width="1.5" opacity="0.5"/>
+      <line x1="20" y1="46" x2="50" y2="46" stroke="#c9a227" stroke-width="1.5" opacity="0.5"/>
+      <line x1="20" y1="54" x2="55" y2="54" stroke="#c9a227" stroke-width="1.5" opacity="0.5"/>
+      <circle cx="62" cy="56" r="5" stroke="#c9a227" stroke-width="1.5" fill="rgba(201,162,39,0.2)"/>
+      <path d="M60 56 L62 58 L65 54" stroke="#c9a227" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+
+  <div class="cover-project-label">B.Tech Project Report</div>
+  <h1 class="cover-title">Library Management System Using Spring Boot & Modern Web Technologies</h1>
+  <p class="cover-subtitle">Course Code: BTA49111 · Object Oriented Programming Lab · Semester IV</p>
+
+  <div class="cover-tech-badges">
+    <span class="tech-badge">SPRING BOOT</span>
+    <span class="tech-badge">MYSQL</span>
+    <span class="tech-badge">HTML / CSS / JS</span>
+    <span class="tech-badge">REST API</span>
+    <span class="tech-badge">JAVA</span>
+  </div>
+
+  <div class="cover-team-section">
+    <h4>Project Team – Group 02</h4>
+    <div class="team-grid">
+      <div class="member"><span class="name">Sourav Koley</span><span class="code">BWU/BTA/24/247</span></div>
+      <div class="member"><span class="name">Suvam Patra</span><span class="code">BWU/BTA/24/248</span></div>
+      <div class="member"><span class="name">Sudip Maji</span><span class="code">BWU/BTA/24/249</span></div>
+      <div class="member"><span class="name">Jiban Maji</span><span class="code">BWU/BTA/24/251</span></div>
+      <div class="member"><span class="name">Sandip Kundu</span><span class="code">BWU/BTA/24/252</span></div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <span>Guide: Ms. Sampurna Mandal</span>
+    <span>|</span>
+    <span>HoD: Dr. Shivnath Ghosh</span>
+    <span>|</span>
+    <span>Academic Year 2025–2026</span>
+  </div>
+</div>
+
+<!-- ==================== PAGE 2: ABSTRACT, INTRO, REQUIREMENTS ==================== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <div class="header-left">
+      <div class="header-icon"><i data-lucide="file-text" style="width:18px;height:18px;"></i></div>
+      <div class="header-text">
+        <h3>Project Overview</h3>
+        <p>Abstract · Introduction · Requirements</p>
+      </div>
+    </div>
+    <div class="page-num">PAGE 02</div>
+  </div>
+
+  <div class="abstract-box">
+    <p>The Library Management System is a web-based application designed to automate and streamline library operations efficiently. Traditional library systems rely on manual record-keeping, which is time-consuming and prone to errors. This system provides a digital solution using <strong>Spring Boot</strong> for backend development and <strong>HTML, CSS, and JavaScript</strong> for frontend implementation. It offers features such as user authentication, book management, issue-return tracking, and automated fine calculation. The application follows a layered architecture, ensuring scalability, maintainability, and performance.</p>
+  </div>
+
+  <div class="section-title">
+    <span class="num">1</span> Introduction
+  </div>
+  <p class="body-text">In the era of digital transformation, automation of manual systems has become essential for efficiency and accuracy. A Library Management System (LMS) is designed to manage library resources effectively. Traditional systems depend on manual records, which often lead to errors, data redundancy, and inefficiency. This project introduces a web-based system that automates all major library operations.</p>
+
+  <div class="sub-section-title">1.2 Objectives</div>
+  <ul class="styled-list">
+    <li>To develop a fully automated library management system</li>
+    <li>To reduce manual workload and human errors</li>
+    <li>To ensure secure and efficient data management</li>
+    <li>To design a scalable and user-friendly system</li>
+  </ul>
+
+  <div class="section-title">
+    <span class="num">2</span> Literature Review
+  </div>
+  <p class="body-text">Earlier library systems were based on manual processes where records were maintained in physical registers. These systems required significant effort and were prone to errors. With technological advancements, digital systems were introduced but lacked flexibility and scalability. Modern systems provide real-time data access, better security, and improved user experience. This project uses modern technologies to overcome limitations and provide a reliable solution.</p>
+
+  <div class="section-title">
+    <span class="num">3</span> System Analysis & Requirements
+  </div>
+
+  <div class="two-col">
+    <div class="col">
+      <div class="sub-section-title">3.1 Functional Requirements</div>
+      <table class="req-table">
+        <tr><th>Req ID</th><th>Description</th></tr>
+        <tr><td>FR-01</td><td><span class="tag tag-functional">Auth</span> User registration & login</td></tr>
+        <tr><td>FR-02</td><td><span class="tag tag-functional">CRUD</span> Book management</td></tr>
+        <tr><td>FR-03</td><td><span class="tag tag-functional">Txn</span> Book issue & return</td></tr>
+        <tr><td>FR-04</td><td><span class="tag tag-functional">Calc</span> Fine calculation</td></tr>
+      </table>
+    </div>
+    <div class="col">
+      <div class="sub-section-title">3.2 Non-Functional Requirements</div>
+      <table class="req-table">
+        <tr><th>Req ID</th><th>Description</th></tr>
+        <tr><td>NFR-01</td><td><span class="tag tag-nonfunctional">Perf</span> High performance</td></tr>
+        <tr><td>NFR-02</td><td><span class="tag tag-nonfunctional">Sec</span> Data security</td></tr>
+        <tr><td>NFR-03</td><td><span class="tag tag-nonfunctional">Scale</span> Scalability</td></tr>
+        <tr><td>NFR-04</td><td><span class="tag tag-nonfunctional">UX</span> User-friendly interface</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub-section-title">3.3 Feasibility Study</div>
+  <div class="info-cards">
+    <div class="info-card">
+      <div class="card-icon"><i data-lucide="cpu" style="width:16px;height:16px;"></i></div>
+      <h5>Technical</h5>
+      <p>Spring Boot + MySQL — proven enterprise stack</p>
+    </div>
+    <div class="info-card">
+      <div class="card-icon"><i data-lucide="indian-rupee" style="width:16px;height:16px;"></i></div>
+      <h5>Economic</h5>
+      <p>Open-source tools — minimal cost</p>
+    </div>
+    <div class="info-card">
+      <div class="card-icon"><i data-lucide="users" style="width:16px;height:16px;"></i></div>
+      <h5>Operational</h5>
+      <p>Intuitive UI — easy to learn & operate</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Library Management System · Brainware University</span>
+    <span>BTA49111 · Group 02 · 2025–2026</span>
+  </div>
+</div>
+
+<!-- ==================== PAGE 3: SYSTEM DESIGN ==================== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <div class="header-left">
+      <div class="header-icon"><i data-lucide="layout-dashboard" style="width:18px;height:18px;"></i></div>
+      <div class="header-text">
+        <h3>System Design</h3>
+        <p>Architecture · Modules · Data Flow</p>
+      </div>
+    </div>
+    <div class="page-num">PAGE 03</div>
+  </div>
+
+  <div class="section-title">
+    <span class="num">4</span> System Architecture
+  </div>
+  <p class="body-text">The system follows a client-server architecture where the frontend interacts with the backend through REST APIs, and the backend communicates with the MySQL database for persistent storage.</p>
+
+  <div class="diagram-box">
+    <div class="diagram-label">Client-Server Architecture</div>
+    <svg viewBox="0 0 700 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Client -->
+      <rect x="20" y="50" width="160" height="100" rx="12" fill="#EBF8FF" stroke="#3182CE" stroke-width="2"/>
+      <rect x="50" y="68" width="100" height="12" rx="3" fill="#3182CE"/>
+      <rect x="55" y="88" width="90" height="8" rx="2" fill="#BEE3F8"/>
+      <rect x="55" y="102" width="70" height="8" rx="2" fill="#BEE3F8"/>
+      <rect x="55" y="116" width="80" height="8" rx="2" fill="#BEE3F8"/>
+      <rect x="40" y="130" width="120" height="8" rx="2" fill="#90CDF4"/>
+      <text x="100" y="42" text-anchor="middle" fill="#2B6CB0" font-size="12" font-weight="700">CLIENT</text>
+      <text x="100" y="156" text-anchor="middle" fill="#2B6CB0" font-size="9">HTML · CSS · JS</text>
+
+      <!-- Arrow 1 -->
+      <line x1="190" y1="90" x2="260" y2="90" stroke="#c9a227" stroke-width="2" stroke-dasharray="6,4"/>
+      <polygon points="258,85 268,90 258,95" fill="#c9a227"/>
+      <text x="225" y="82" text-anchor="middle" fill="#c9a227" font-size="8" font-weight="600">REST API</text>
+
+      <!-- Backend -->
+      <rect x="270" y="30" width="180" height="140" rx="12" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/>
+      <text x="360" y="22" text-anchor="middle" fill="#975A16" font-size="12" font-weight="700">SPRING BOOT BACKEND</text>
+      
+      <!-- Controller -->
+      <rect x="285" y="45" width="150" height="28" rx="6" fill="#F6E05E" stroke="#D69E2E" stroke-width="1"/>
+      <text x="360" y="64" text-anchor="middle" fill="#744210" font-size="10" font-weight="600">Controller Layer</text>
+      
+      <!-- Service -->
+      <rect x="285" y="80" width="150" height="28" rx="6" fill="#FAF089" stroke="#D69E2E" stroke-width="1"/>
+      <text x="360" y="99" text-anchor="middle" fill="#744210" font-size="10" font-weight="600">Service Layer</text>
+      
+      <!-- Repository -->
+      <rect x="285" y="115" width="150" height="28" rx="6" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1"/>
+      <text x="360" y="134" text-anchor="middle" fill="#744210" font-size="10" font-weight="600">Repository Layer</text>
+
+      <!-- Arrow 2 -->
+      <line x1="460" y1="90" x2="530" y2="90" stroke="#c9a227" stroke-width="2" stroke-dasharray="6,4"/>
+      <polygon points="528,85 538,90 528,95" fill="#c9a227"/>
+      <text x="495" y="82" text-anchor="middle" fill="#c9a227" font-size="8" font-weight="600">JDBC</text>
+
+      <!-- Database -->
+      <ellipse cx="610" cy="60" rx="60" ry="18" fill="#C6F6D5" stroke="#38A169" stroke-width="2"/>
+      <rect x="550" y="60" width="120" height="50" fill="#C6F6D5" stroke="#38A169" stroke-width="2" stroke-dasharray="0,120,50,0"/>
+      <line x1="550" y1="60" x2="550" y2="110" stroke="#38A169" stroke-width="2"/>
+      <line x1="670" y1="60" x2="670" y2="110" stroke="#38A169" stroke-width="2"/>
+      <ellipse cx="610" cy="110" rx="60" ry="18" fill="#C6F6D5" stroke="#38A169" stroke-width="2"/>
+      <text x="610" y="42" text-anchor="middle" fill="#276749" font-size="12" font-weight="700">DATABASE</text>
+      <text x="610" y="89" text-anchor="middle" fill="#276749" font-size="10" font-weight="600">MySQL</text>
+    </svg>
+    <div class="layer-legend">
+      <div class="leg-item"><div class="leg-dot" style="background:#3182CE;"></div> Presentation</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#D69E2E;"></div> Business Logic</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#38A169;"></div> Data Storage</div>
+    </div>
+  </div>
+
+  <div class="sub-section-title">4.3 Module Description</div>
+  <div class="module-cards">
+    <div class="module-card">
+      <div class="mod-icon mod-auth"><i data-lucide="shield-check" style="width:18px;height:18px;"></i></div>
+      <div><h5>Authentication Module</h5><p>Handles user registration, login, session management, and role-based access control.</p></div>
+    </div>
+    <div class="module-card">
+      <div class="mod-icon mod-book"><i data-lucide="book-open" style="width:18px;height:18px;"></i></div>
+      <div><h5>Book Management</h5><p>CRUD operations for books — add, update, delete, search, and view catalog.</p></div>
+    </div>
+    <div class="module-card">
+      <div class="mod-icon mod-trans"><i data-lucide="arrow-left-right" style="width:18px;height:18px;"></i></div>
+      <div><h5>Transaction Module</h5><p>Manages book issue and return operations with real-time status tracking.</p></div>
+    </div>
+    <div class="module-card">
+      <div class="mod-icon mod-fine"><i data-lucide="calculator" style="width:18px;height:18px;"></i></div>
+      <div><h5>Fine Calculation</h5><p>Automated fine computation based on overdue days with configurable rates.</p></div>
+    </div>
+  </div>
+
+  <div class="sub-section-title">4.4 Data Flow Diagram</div>
+  <div class="diagram-box">
+    <div class="diagram-label">Level-0 DFD</div>
+    <svg viewBox="0 0 700 110" fill="none">
+      <!-- User -->
+      <circle cx="60" cy="55" r="30" fill="#EBF8FF" stroke="#3182CE" stroke-width="2"/>
+      <circle cx="60" cy="45" r="10" fill="#3182CE" opacity="0.3"/>
+      <path d="M40 70 Q60 55 80 70" stroke="#3182CE" stroke-width="2" fill="none"/>
+      <text x="60" y="100" text-anchor="middle" fill="#2B6CB0" font-size="10" font-weight="600">User</text>
+
+      <line x1="95" y1="55" x2="175" y2="55" stroke="#718096" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+      <text x="135" y="47" text-anchor="middle" fill="#718096" font-size="8">Request</text>
+
+      <!-- Frontend -->
+      <rect x="180" y="30" width="100" height="50" rx="8" fill="#EBF8FF" stroke="#3182CE" stroke-width="1.5"/>
+      <text x="230" y="60" text-anchor="middle" fill="#2B6CB0" font-size="10" font-weight="600">Frontend</text>
+
+      <line x1="285" y1="55" x2="345" y2="55" stroke="#718096" stroke-width="1.5"/>
+      <text x="315" y="47" text-anchor="middle" fill="#718096" font-size="8">HTTP</text>
+
+      <!-- Backend -->
+      <rect x="350" y="30" width="100" height="50" rx="8" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/>
+      <text x="400" y="60" text-anchor="middle" fill="#744210" font-size="10" font-weight="600">Backend</text>
+
+      <line x1="455" y1="55" x2="515" y2="55" stroke="#718096" stroke-width="1.5"/>
+      <text x="485" y="47" text-anchor="middle" fill="#718096" font-size="8">SQL</text>
+
+      <!-- Database -->
+      <ellipse cx="560" cy="45" rx="50" ry="15" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/>
+      <rect x="510" y="45" width="100" height="25" fill="#C6F6D5"/>
+      <ellipse cx="560" cy="70" rx="50" ry="15" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/>
+      <text x="560" y="62" text-anchor="middle" fill="#276749" font-size="9" font-weight="600">MySQL</text>
+
+      <!-- Response arrow (bottom) -->
+      <path d="M560 90 Q560 105 400 105 Q230 105 230 85" stroke="#38A169" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+      <text x="400" y="102" text-anchor="middle" fill="#38A169" font-size="8" font-style="italic">Response</text>
+
+      <defs>
+        <marker id="arrowGray" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+          <polygon points="0,0 8,3 0,6" fill="#718096"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="page-footer">
+    <span>Library Management System · Brainware University</span>
+    <span>BTA49111 · Group 02 · 2025–2026</span>
+  </div>
+</div>
+
+<!-- ==================== PAGE 4: IMPLEMENTATION & TESTING ==================== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <div class="header-left">
+      <div class="header-icon"><i data-lucide="code-2" style="width:18px;height:18px;"></i></div>
+      <div class="header-text">
+        <h3>Implementation & Testing</h3>
+        <p>Backend · Frontend · Database · Quality Assurance</p>
+      </div>
+    </div>
+    <div class="page-num">PAGE 04</div>
+  </div>
+
+  <div class="section-title">
+    <span class="num">5</span> Implementation
+  </div>
+
+  <div class="sub-section-title">5.1 Technology Stack</div>
+  <div class="diagram-box" style="padding: 16px 20px;">
+    <div class="diagram-label">Tech Stack Overview</div>
+    <svg viewBox="0 0 680 130" fill="none">
+      <!-- Backend Block -->
+      <rect x="10" y="15" width="200" height="100" rx="10" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/>
+      <text x="110" y="8" text-anchor="middle" fill="#975A16" font-size="10" font-weight="700">BACKEND</text>
+      <rect x="25" y="30" width="75" height="30" rx="6" fill="#F6E05E"/>
+      <text x="62" y="50" text-anchor="middle" fill="#744210" font-size="9" font-weight="600">Java</text>
+      <rect x="110" y="30" width="85" height="30" rx="6" fill="#F6E05E"/>
+      <text x="152" y="50" text-anchor="middle" fill="#744210" font-size="9" font-weight="600">Spring Boot</text>
+      <rect x="25" y="70" width="85" height="30" rx="6" fill="#FAF089"/>
+      <text x="67" y="90" text-anchor="middle" fill="#744210" font-size="9" font-weight="600">REST API</text>
+      <rect x="120" y="70" width="75" height="30" rx="6" fill="#FAF089"/>
+      <text x="157" y="90" text-anchor="middle" fill="#744210" font-size="9" font-weight="600">Maven</text>
+
+      <!-- Frontend Block -->
+      <rect x="230" y="15" width="200" height="100" rx="10" fill="#EBF8FF" stroke="#3182CE" stroke-width="1.5"/>
+      <text x="330" y="8" text-anchor="middle" fill="#2B6CB0" font-size="10" font-weight="700">FRONTEND</text>
+      <rect x="245" y="30" width="55" height="30" rx="6" fill="#BEE3F8"/>
+      <text x="272" y="50" text-anchor="middle" fill="#2B6CB0" font-size="9" font-weight="600">HTML</text>
+      <rect x="308" y="30" width="55" height="30" rx="6" fill="#BEE3F8"/>
+      <text x="335" y="50" text-anchor="middle" fill="#2B6CB0" font-size="9" font-weight="600">CSS</text>
+      <rect x="371" y="30" width="45" height="30" rx="6" fill="#BEE3F8"/>
+      <text x="393" y="50" text-anchor="middle" fill="#2B6CB0" font-size="9" font-weight="600">JS</text>
+      <rect x="245" y="70" width="170" height="30" rx="6" fill="#90CDF4"/>
+      <text x="330" y="90" text-anchor="middle" fill="#2B6CB0" font-size="9" font-weight="600">Responsive Design</text>
+
+      <!-- Database Block -->
+      <rect x="450" y="15" width="220" height="100" rx="10" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/>
+      <text x="560" y="8" text-anchor="middle" fill="#276749" font-size="10" font-weight="700">DATABASE</text>
+      <rect x="465" y="30" width="80" height="30" rx="6" fill="#9AE6B4"/>
+      <text x="505" y="50" text-anchor="middle" fill="#276749" font-size="9" font-weight="600">MySQL</text>
+      <rect x="555" y="30" width="100" height="30" rx="6" fill="#9AE6B4"/>
+      <text x="605" y="50" text-anchor="middle" fill="#276749" font-size="9" font-weight="600">JPA / Hibernate</text>
+      <rect x="465" y="70" width="100" height="30" rx="6" fill="#68D391"/>
+      <text x="515" y="90" text-anchor="middle" fill="#276749" font-size="9" font-weight="600">DDL / DML</text>
+      <rect x="575" y="70" width="80" height="30" rx="6" fill="#68D391"/>
+      <text x="615" y="90" text-anchor="middle" fill="#276749" font-size="9" font-weight="600">CRUD</text>
+    </svg>
+  </div>
+
+  <div class="sub-section-title">5.4 Key Features</div>
+  <div class="info-cards">
+    <div class="info-card">
+      <div class="card-icon"><i data-lucide="lock" style="width:16px;height:16px;"></i></div>
+      <h5>Secure Login</h5>
+      <p>Role-based authentication</p>
+    </div>
+    <div class="info-card">
+      <div class="card-icon"><i data-lucide="database" style="width:16px;height:16px;"></i></div>
+      <h5>CRUD Ops</h5>
+      <p>Full database operations</p>
+    </div>
+    <div class="info-card">
+      <div class="card-icon"><i data-lucide="zap" style="width:16px;height:16px;"></i></div>
+      <h5>Real-time</h5>
+      <p>Live data handling</p>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <span class="num">6</span> Testing & Evaluation
+  </div>
+
+  <div class="sub-section-title">6.1 Types of Testing Performed</div>
+  <div class="two-col" style="margin-bottom:14px;">
+    <div>
+      <table class="req-table">
+        <tr><th>Test Type</th><th>Focus Area</th></tr>
+        <tr><td>Functional</td><td>Feature validation</td></tr>
+        <tr><td>UI Testing</td><td>Interface consistency</td></tr>
+      </table>
+    </div>
+    <div>
+      <table class="req-table">
+        <tr><th>Test Type</th><th>Focus Area</th></tr>
+        <tr><td>API Testing</td><td>REST endpoint validation</td></tr>
+        <tr><td>Database</td><td>Data integrity checks</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub-section-title">6.2 Test Results</div>
+  <div class="diagram-box">
+    <div class="diagram-label">Test Pass Rate</div>
+    <div class="test-bar-group">
+      <div class="test-bar-item">
+        <div class="label">Functional</div>
+        <div class="bar-bg"><div class="bar-fill bar-pass" style="width:98%;">98%</div></div>
+      </div>
+      <div class="test-bar-item">
+        <div class="label">UI Testing</div>
+        <div class="bar-bg"><div class="bar-fill bar-good" style="width:95%;">95%</div></div>
+      </div>
+      <div class="test-bar-item">
+        <div class="label">API Testing</div>
+        <div class="bar-bg"><div class="bar-fill bar-pass" style="width:97%;">97%</div></div>
+      </div>
+      <div class="test-bar-item">
+        <div class="label">Database</div>
+        <div class="bar-bg"><div class="bar-fill bar-good" style="width:100%;">100%</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-section-title">16. Security Features</div>
+  <div class="security-grid">
+    <div class="sec-item">
+      <div class="sec-icon"><i data-lucide="shield" style="width:16px;height:16px;"></i></div>
+      <h5>Authentication</h5>
+      <p>Secure login with role-based access</p>
+    </div>
+    <div class="sec-item">
+      <div class="sec-icon"><i data-lucide="check-circle" style="width:16px;height:16px;"></i></div>
+      <h5>Input Validation</h5>
+      <p>Server-side data sanitization</p>
+    </div>
+    <div class="sec-item">
+      <div class="sec-icon"><i data-lucide="lock" style="width:16px;height:16px;"></i></div>
+      <h5>Secure API</h5>
+      <p>Encrypted API communication</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Library Management System · Brainware University</span>
+    <span>BTA49111 · Group 02 · 2025–2026</span>
+  </div>
+</div>
+
+<!-- ==================== PAGE 5: ER DIAGRAM, CONCLUSION, FUTURE ==================== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <div class="header-left">
+      <div class="header-icon"><i data-lucide="git-branch" style="width:18px;height:18px;"></i></div>
+      <div class="header-text">
+        <h3>ER Design & Conclusion</h3>
+        <p>Database Schema · Results · Future Scope</p>
+      </div>
+    </div>
+    <div class="page-num">PAGE 05</div>
+  </div>
+
+  <div class="section-title">
+    <span class="num">10</span> ER Diagram
+  </div>
+  <p class="body-text">The ER diagram represents four core entities — <strong>User</strong>, <strong>Book</strong>, <strong>Transaction</strong>, and <strong>Fine</strong> — along with their attributes and relationships.</p>
+
+  <div class="diagram-box">
+    <div class="diagram-label">Entity-Relationship Diagram</div>
+    <svg viewBox="0 0 700 240" fill="none">
+      <!-- USER Entity -->
+      <rect x="10" y="40" width="120" height="130" rx="8" fill="white" stroke="#1a365d" stroke-width="2"/>
+      <rect x="10" y="40" width="120" height="28" rx="8" fill="#1a365d"/>
+      <rect x="10" y="60" width="120" height="8" fill="#1a365d"/>
+      <text x="70" y="59" text-anchor="middle" fill="#c9a227" font-size="11" font-weight="700">USER</text>
+      <text x="22" y="88" fill="#c9a227" font-size="9" font-weight="700">🔑 user_id</text>
+      <text x="22" y="104" fill="#2d3748" font-size="9">name</text>
+      <text x="22" y="120" fill="#2d3748" font-size="9">email</text>
+      <text x="22" y="136" fill="#2d3748" font-size="9">password</text>
+      <text x="22" y="152" fill="#2d3748" font-size="9">role</text>
+
+      <!-- Relationship: Issues -->
+      <polygon points="155,95 195,75 235,95 195,115" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/>
+      <text x="195" y="99" text-anchor="middle" fill="#975A16" font-size="8" font-weight="700">Issues</text>
+      <text x="155" y="89" fill="#718096" font-size="7">1</text>
+      <text x="230" y="89" fill="#718096" font-size="7">N</text>
+
+      <!-- TRANSACTION Entity -->
+      <rect x="250" y="20" width="130" height="150" rx="8" fill="white" stroke="#2c5282" stroke-width="2"/>
+      <rect x="250" y="20" width="130" height="28" rx="8" fill="#2c5282"/>
+      <rect x="250" y="40" width="130" height="8" fill="#2c5282"/>
+      <text x="315" y="39" text-anchor="middle" fill="#c9a227" font-size="11" font-weight="700">TRANSACTION</text>
+      <text x="262" y="68" fill="#c9a227" font-size="9" font-weight="700">🔑 txn_id</text>
+      <text x="262" y="84" fill="#2d3748" font-size="9">user_id (FK)</text>
+      <text x="262" y="100" fill="#2d3748" font-size="9">book_id (FK)</text>
+      <text x="262" y="116" fill="#2d3748" font-size="9">issue_date</text>
+      <text x="262" y="132" fill="#2d3748" font-size="9">return_date</text>
+      <text x="262" y="148" fill="#2d3748" font-size="9">status</text>
+
+      <!-- Relationship: Has -->
+      <polygon points="155,145 195,125 235,145 195,165" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/>
+      <text x="195" y="149" text-anchor="middle" fill="#975A16" font-size="8" font-weight="700">Has</text>
+      <text x="230" y="139" fill="#718096" font-size="7">1</text>
+
+      <!-- BOOK Entity -->
+      <rect x="10" y="195" width="120" height="40" rx="8" fill="white" stroke="#38a169" stroke-width="2"/>
+      <text x="70" y="220" text-anchor="middle" fill="#276749" font-size="11" font-weight="700">BOOK</text>
+      <line x1="130" y1="155" x2="130" y2="210" stroke="#718096" stroke-width="1.5"/>
+      <text x="135" y="183" fill="#718096" font-size="7">N</text>
+
+      <!-- Relationship: Generates -->
+      <polygon points="405,95 445,75 485,95 445,115" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/>
+      <text x="445" y="99" text-anchor="middle" fill="#975A16" font-size="8" font-weight="700">Generates</text>
+      <text x="380" y="89" fill="#718096" font-size="7">1</text>
+      <text x="480" y="89" fill="#718096" font-size="7">1</text>
+
+      <!-- FINE Entity -->
+      <rect x="500" y="40" width="120" height="130" rx="8" fill="white" stroke="#e53e3e" stroke-width="2"/>
+      <rect x="500" y="40" width="120" height="28" rx="8" fill="#e53e3e"/>
+      <rect x="500" y="60" width="120" height="8" fill="#e53e3e"/>
+      <text x="560" y="59" text-anchor="middle" fill="#feb2b2" font-size="11" font-weight="700">FINE</text>
+      <text x="512" y="88" fill="#c9a227" font-size="9" font-weight="700">🔑 fine_id</text>
+      <text x="512" y="104" fill="#2d3748" font-size="9">txn_id (FK)</text>
+      <text x="512" y="120" fill="#2d3748" font-size="9">amount</text>
+      <text x="512" y="136" fill="#2d3748" font-size="9">overdue_days</text>
+      <text x="512" y="152" fill="#2d3748" font-size="9">paid_status</text>
+
+      <!-- Book attributes note -->
+      <text x="70" y="248" text-anchor="middle" fill="#718096" font-size="7" font-style="italic">book_id*, title, author, isbn, qty</text>
+    </svg>
+  </div>
+
+  <div class="section-title">
+    <span class="num">7</span> Results & Discussion
+  </div>
+  <div class="highlight-box">
+    <p>The system successfully meets all project requirements. It provides a fast, reliable, and user-friendly solution that digitizes library operations. All modules — authentication, book management, transactions, and fine calculation — function as intended with high accuracy and minimal response time.</p>
+  </div>
+
+  <div class="section-title">
+    <span class="num">8</span> Conclusion
+  </div>
+  <p class="body-text">The developed system effectively digitizes library operations and enhances efficiency. It reduces manual effort and ensures accurate data management. The layered architecture approach provides maintainability, and the use of Spring Boot ensures enterprise-grade reliability.</p>
+
+  <div class="section-title">
+    <span class="num">9</span> Future Scope
+  </div>
+  <div class="future-grid">
+    <div class="future-item">
+      <div class="fi-icon"><i data-lucide="smartphone" style="width:18px;height:18px;"></i></div>
+      <div class="fi-text"><h5>Mobile App</h5><p>Android/iOS integration</p></div>
+    </div>
+    <div class="future-item">
+      <div class="fi-icon"><i data-lucide="scan-barcode" style="width:18px;height:18px;"></i></div>
+      <div class="fi-text"><h5>Barcode System</h5><p>Scan-based book tracking</p></div>
+    </div>
+    <div class="future-item">
+      <div class="fi-icon"><i data-lucide="cloud" style="width:18px;height:18px;"></i></div>
+      <div class="fi-text"><h5>Cloud Deploy</h5><p>AWS/Azure hosting</p></div>
+    </div>
+    <div class="future-item">
+      <div class="fi-icon"><i data-lucide="brain" style="width:18px;height:18px;"></i></div>
+      <div class="fi-text"><h5>AI Recommendations</h5><p>Smart book suggestions</p></div>
+    </div>
+  </div>
+
+  <div class="sub-section-title">20. References</div>
+  <ul class="styled-list" style="font-size:10.5px;">
+    <li>Spring Boot Official Documentation — spring.io</li>
+    <li>MySQL Reference Manual — dev.mysql.com</li>
+    <li>Java Documentation — Oracle Corporation</li>
+    <li>OOP Concepts — GeeksforGeeks</li>
+    <li>W3Schools — HTML, CSS, JavaScript Tutorials</li>
+    <li>IntelliJ IDEA Documentation — JetBrains</li>
+  </ul>
+
+  <div class="page-footer">
+    <span>Library Management System · Brainware University</span>
+    <span>BTA49111 · Group 02 · 2025–2026</span>
+  </div>
+</div>
+
+<script>
+  lucide.createIcons();
+</script>
+</body>
+</html>
