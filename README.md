@@ -180,7 +180,7 @@ frontend/login.html
 
 👉 Try the project here:  
 [**Library Management System Demo**](https://library-management-system-iota-self.vercel.app/)   
-[**Abstract Project Format**](https://chat.z.ai/space/h1aye2bep0j1-art)
+[**Abstract Project Format**](https://abstract-project-format-for-library-tau.vercel.app/)
 
 ---
 
